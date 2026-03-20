@@ -4,668 +4,38 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Bhavesh Lohana — Backend Engineer</title>
+  <meta name="description" content="Backend engineer specializing in distributed systems, data pipelines, and high-throughput Java services." />
+  <meta property="og:title" content="Bhavesh Lohana — Backend Engineer" />
+  <meta property="og:description" content="Backend engineer specializing in distributed systems, data pipelines, and high-throughput Java services." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Arial' font-size='42'%3EB%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
-  <style type="text/plain">
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg: #0a0a0f;
-      --surface: #111118;
-      --border: #1e1e2e;
-      --accent: #00e5ff;
-      --accent2: #7c3aed;
-      --text: #e2e2f0;
-      --muted: #6b6b8a;
-      --tag-bg: #1a1a2e;
-      --font-display: 'Syne', sans-serif;
-      --font-mono: 'JetBrains Mono', monospace;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--font-mono);
-      font-size: 14px;
-      line-height: 1.7;
-      overflow-x: hidden;
-    }
-
-    /* NOISE TEXTURE OVERLAY */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 1000;
-      opacity: 0.4;
-    }
-
-    /* GRID BACKGROUND */
-    body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image:
-        linear-gradient(var(--border) 1px, transparent 1px),
-        linear-gradient(90deg, var(--border) 1px, transparent 1px);
-      background-size: 60px 60px;
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.3;
-    }
-
-    /* NAV */
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      padding: 20px 60px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      backdrop-filter: blur(20px);
-      background: rgba(10, 10, 15, 0.8);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .nav-logo {
-      font-family: var(--font-display);
-      font-weight: 800;
-      font-size: 18px;
-      color: var(--text);
-      text-decoration: none;
-      letter-spacing: -0.5px;
-    }
-
-    .nav-logo span { color: var(--accent); }
-
-    .nav-links {
-      display: flex;
-      gap: 36px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 12px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover { color: var(--accent); }
-
-    /* SECTIONS */
-    section {
-      position: relative;
-      z-index: 1;
-    }
-
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 60px;
-    }
-
-    /* HERO */
-    #hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      padding-top: 80px;
-    }
-
-    .hero-inner {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
-      width: 100%;
-    }
-
-    .hero-label {
-      font-size: 11px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 20px;
-      opacity: 0;
-      animation: fadeUp 0.6s ease forwards 0.2s;
-    }
-
-    .hero-name {
-      font-family: var(--font-display);
-      font-weight: 800;
-      font-size: clamp(42px, 5vw, 68px);
-      line-height: 1.0;
-      letter-spacing: -2px;
-      color: var(--text);
-      margin-bottom: 16px;
-      opacity: 0;
-      animation: fadeUp 0.6s ease forwards 0.4s;
-    }
-
-    .hero-name .line2 {
-      color: var(--muted);
-    }
-
-    .hero-title {
-      font-size: 14px;
-      color: var(--muted);
-      margin-bottom: 32px;
-      opacity: 0;
-      animation: fadeUp 0.6s ease forwards 0.6s;
-    }
-
-    .hero-title strong { color: var(--text); }
-
-    .hero-desc {
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.8;
-      max-width: 480px;
-      margin-bottom: 48px;
-      opacity: 0;
-      animation: fadeUp 0.6s ease forwards 0.8s;
-    }
-
-    .hero-cta {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-      opacity: 0;
-      animation: fadeUp 0.6s ease forwards 1.0s;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 12px 24px;
-      font-family: var(--font-mono);
-      font-size: 12px;
-      letter-spacing: 0.5px;
-      text-decoration: none;
-      border-radius: 4px;
-      transition: all 0.2s;
-      cursor: pointer;
-      border: none;
-    }
-
-    .btn-primary {
-      background: var(--accent);
-      color: #000;
-      font-weight: 500;
-    }
-
-    .btn-primary:hover {
-      background: #fff;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 32px rgba(0, 229, 255, 0.3);
-    }
-
-    .btn-ghost {
-      background: transparent;
-      color: var(--muted);
-      border: 1px solid var(--border);
-    }
-
-    .btn-ghost:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      transform: translateY(-2px);
-    }
-
-    /* HERO RIGHT — CODE BLOCK */
-    .hero-code {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      overflow: hidden;
-      opacity: 0;
-      animation: fadeIn 0.8s ease forwards 1.2s;
-    }
-
-    .code-header {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 12px 16px;
-      border-bottom: 1px solid var(--border);
-      background: rgba(255,255,255,0.02);
-    }
-
-    .dot { width: 10px; height: 10px; border-radius: 50%; }
-    .dot-red { background: #ff5f57; }
-    .dot-yellow { background: #ffbd2e; }
-    .dot-green { background: #28c840; }
-
-    .code-filename {
-      margin-left: 8px;
-      font-size: 11px;
-      color: var(--muted);
-    }
-
-    .code-body {
-      padding: 24px;
-      font-size: 12px;
-      line-height: 1.8;
-    }
-
-    .code-line { display: flex; gap: 16px; }
-    .ln { color: #2a2a3e; min-width: 20px; text-align: right; user-select: none; }
-    .kw { color: #7c3aed; }
-    .cl { color: #00e5ff; }
-    .fn { color: #f59e0b; }
-    .st { color: #10b981; }
-    .cm { color: #3d3d5c; font-style: italic; }
-    .nu { color: #f97316; }
-    .tx { color: var(--text); }
-
-    /* SECTION HEADER */
-    .section-header {
-      margin-bottom: 60px;
-    }
-
-    .section-eyebrow {
-      font-size: 11px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 12px;
-    }
-
-    .section-title {
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: clamp(28px, 4vw, 42px);
-      letter-spacing: -1px;
-      color: var(--text);
-    }
-
-    /* EXPERIENCE */
-    #experience {
-      padding: 120px 0;
-    }
-
-    .timeline {
-      position: relative;
-      padding-left: 32px;
-    }
-
-    .timeline::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 8px;
-      bottom: 8px;
-      width: 1px;
-      background: linear-gradient(to bottom, var(--accent), var(--accent2), transparent);
-    }
-
-    .timeline-item {
-      position: relative;
-      margin-bottom: 56px;
-    }
-
-    .timeline-item::before {
-      content: '';
-      position: absolute;
-      left: -37px;
-      top: 8px;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 12px var(--accent);
-    }
-
-    .timeline-meta {
-      display: flex;
-      align-items: baseline;
-      gap: 16px;
-      margin-bottom: 6px;
-      flex-wrap: wrap;
-    }
-
-    .timeline-company {
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: 18px;
-      color: var(--text);
-    }
-
-    .timeline-period {
-      font-size: 11px;
-      color: var(--muted);
-      letter-spacing: 1px;
-    }
-
-    .timeline-role {
-      font-size: 12px;
-      color: var(--accent);
-      margin-bottom: 20px;
-      letter-spacing: 0.5px;
-    }
-
-    .timeline-items {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .timeline-items li {
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.7;
-      padding-left: 16px;
-      position: relative;
-    }
-
-    .timeline-items li::before {
-      content: '→';
-      position: absolute;
-      left: 0;
-      color: var(--accent);
-      font-size: 11px;
-    }
-
-    .timeline-items li strong { color: var(--text); }
-
-    /* PROJECTS */
-    #projects {
-      padding: 120px 0;
-      background: linear-gradient(to bottom, transparent, rgba(124, 58, 237, 0.03), transparent);
-    }
-
-    .projects-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-    }
-
-    .project-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 32px;
-      transition: all 0.3s;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .project-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(0,229,255,0.03), transparent);
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-
-    .project-card:hover {
-      border-color: rgba(0, 229, 255, 0.3);
-      transform: translateY(-4px);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-    }
-
-    .project-card:hover::before { opacity: 1; }
-
-    .project-number {
-      font-size: 11px;
-      color: var(--accent);
-      letter-spacing: 2px;
-      margin-bottom: 16px;
-      opacity: 0.6;
-    }
-
-    .project-name {
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: 20px;
-      color: var(--text);
-      margin-bottom: 12px;
-      letter-spacing: -0.5px;
-    }
-
-    .project-desc {
-      font-size: 12px;
-      color: var(--muted);
-      line-height: 1.8;
-      margin-bottom: 24px;
-    }
-
-    .project-highlights {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      margin-bottom: 24px;
-    }
-
-    .project-highlights li {
-      font-size: 11px;
-      color: var(--muted);
-      padding-left: 14px;
-      position: relative;
-    }
-
-    .project-highlights li::before {
-      content: '▸';
-      position: absolute;
-      left: 0;
-      color: var(--accent);
-      font-size: 9px;
-    }
-
-    .project-highlights li strong { color: var(--text); }
-
-    .project-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 24px;
-    }
-
-    .tag {
-      background: var(--tag-bg);
-      color: var(--muted);
-      font-size: 10px;
-      padding: 4px 10px;
-      border-radius: 3px;
-      letter-spacing: 0.5px;
-      border: 1px solid var(--border);
-    }
-
-    .project-links {
-      display: flex;
-      gap: 12px;
-    }
-
-    .project-link {
-      font-size: 11px;
-      color: var(--muted);
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      letter-spacing: 0.5px;
-      transition: color 0.2s;
-    }
-
-    .project-link:hover { color: var(--accent); }
-
-    /* SKILLS */
-    #skills {
-      padding: 120px 0;
-    }
-
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-    }
-
-    .skill-group {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 28px;
-    }
-
-    .skill-group-title {
-      font-size: 11px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 20px;
-    }
-
-    .skill-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .skill-badge {
-      font-size: 11px;
-      color: var(--text);
-      background: var(--tag-bg);
-      border: 1px solid var(--border);
-      padding: 5px 12px;
-      border-radius: 3px;
-      transition: all 0.2s;
-    }
-
-    .skill-badge:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    /* CONTACT */
-    #contact {
-      padding: 120px 0;
-      text-align: center;
-    }
-
-    .contact-inner {
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    .contact-title {
-      font-family: var(--font-display);
-      font-weight: 800;
-      font-size: clamp(32px, 5vw, 56px);
-      letter-spacing: -2px;
-      color: var(--text);
-      margin-bottom: 16px;
-    }
-
-    .contact-title span { color: var(--accent); }
-
-    .contact-sub {
-      font-size: 13px;
-      color: var(--muted);
-      margin-bottom: 48px;
-      line-height: 1.8;
-    }
-
-    .contact-links {
-      display: flex;
-      justify-content: center;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    /* FOOTER */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 32px 60px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: relative;
-      z-index: 1;
-    }
-
-    .footer-text {
-      font-size: 11px;
-      color: var(--muted);
-    }
-
-    .footer-text span { color: var(--accent); }
-
-    /* ANIMATIONS */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    /* SCROLL REVEAL */
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* CURSOR GLOW */
-    .cursor-glow {
-      position: fixed;
-      width: 300px;
-      height: 300px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(0,229,255,0.05) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: 999;
-      transform: translate(-50%, -50%);
-      transition: left 0.1s, top 0.1s;
-    }
-
-    /* RESPONSIVE */
-    @media (max-width: 768px) {
-      nav { padding: 16px 24px; }
-      .nav-links { display: none; }
-      .container { padding: 0 24px; }
-      .hero-inner { grid-template-columns: 1fr; gap: 40px; }
-      .hero-code { display: none; }
-      .projects-grid { grid-template-columns: 1fr; }
-      .skills-grid { grid-template-columns: 1fr; }
-      footer { flex-direction: column; gap: 16px; padding: 24px; }
-    }
-  </style>
 </head>
 <body>
 
+<a class="skip-link" href="#experience">Skip to content</a>
 <div class="cursor-glow" id="cursorGlow"></div>
 
 <!-- NAV -->
 <nav>
   <a href="#hero" class="nav-logo">BL<span>.</span></a>
-  <ul class="nav-links">
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#contact">Contact</a></li>
+  <button
+    class="nav-toggle"
+    type="button"
+    aria-label="Toggle navigation"
+    aria-controls="navLinks"
+    aria-expanded="false"
+  >☰</button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#experience" data-section="experience">Experience</a></li>
+    <li><a href="#projects" data-section="projects">Projects</a></li>
+    <li><a href="#skills" data-section="skills">Skills</a></li>
+    <li><a href="#contact" data-section="contact">Contact</a></li>
+    <li><a href="mailto:bhaveshlohanawork@gmail.com?subject=Resume%20request" class="resume-link">Resume ↗</a></li>
   </ul>
 </nav>
 
@@ -687,39 +57,11 @@
         </p>
         <div class="hero-cta">
           <a href="#projects" class="btn btn-primary">View Projects</a>
-          <a href="https://github.com/bhaveshlohana" target="_blank" class="btn btn-ghost">GitHub ↗</a>
-          <a href="https://linkedin.com/in/bhavesh-lohana" target="_blank" class="btn btn-ghost">LinkedIn ↗</a>
+          <a href="https://github.com/bhaveshlohana" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">GitHub ↗</a>
+          <a href="https://linkedin.com/in/bhavesh-lohana" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">LinkedIn ↗</a>
         </div>
       </div>
 
-      <!-- CODE BLOCK -->
-      <!-- <div class="hero-code">
-        <div class="code-header">
-          <div class="dot dot-red"></div>
-          <div class="dot dot-yellow"></div>
-          <div class="dot dot-green"></div>
-          <span class="code-filename">RateLimiterFactory.java</span>
-        </div>
-        <div class="code-body">
-          <div class="code-line"><span class="ln">1</span><span class="cm">// atomic rate limiting via Lua</span></div>
-          <div class="code-line"><span class="ln">2</span><span></span></div>
-          <div class="code-line"><span class="ln">3</span><span><span class="kw">public</span> <span class="cl">RateLimitResponse</span> <span class="fn">apply</span>(</span></div>
-          <div class="code-line"><span class="ln">4</span><span>&nbsp;&nbsp;<span class="cl">RateLimitRequest</span> <span class="tx">request</span>) {</span></div>
-          <div class="code-line"><span class="ln">5</span><span></span></div>
-          <div class="code-line"><span class="ln">6</span><span>&nbsp;&nbsp;<span class="cl">RateLimitConfig</span> <span class="tx">config</span> =</span></div>
-          <div class="code-line"><span class="ln">7</span><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tx">configService</span>.<span class="fn">getConfig</span>(</span></div>
-          <div class="code-line"><span class="ln">8</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tx">request</span>.<span class="fn">getClientType</span>());</span></div>
-          <div class="code-line"><span class="ln">9</span><span></span></div>
-          <div class="code-line"><span class="ln">10</span><span>&nbsp;&nbsp;<span class="kw">return switch</span> (<span class="tx">config</span>.<span class="fn">getAlgorithm</span>()) {</span></div>
-          <div class="code-line"><span class="ln">11</span><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">case</span> <span class="cl">FIXED_WINDOW</span> -></span></div>
-          <div class="code-line"><span class="ln">12</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tx">fixedWindow</span>.<span class="fn">isAllowedLua</span>(<span class="tx">request</span>);</span></div>
-          <div class="code-line"><span class="ln">13</span><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">case</span> <span class="cl">TOKEN_BUCKET</span> -></span></div>
-          <div class="code-line"><span class="ln">14</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tx">tokenBucket</span>.<span class="fn">isAllowedLua</span>(<span class="tx">request</span>);</span></div>
-          <div class="code-line"><span class="ln">15</span><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">default</span> -> <span class="tx">sliding</span>.<span class="fn">isAllowedLua</span>(<span class="tx">request</span>);</span></div>
-          <div class="code-line"><span class="ln">16</span><span>&nbsp;&nbsp;};</span></div>
-          <div class="code-line"><span class="ln">17</span><span>}</span></div>
-        </div>
-      </div> -->
     </div>
   </div>
 </section>
@@ -731,6 +73,10 @@
       <p class="section-eyebrow">// work history</p>
       <h2 class="section-title">Experience</h2>
     </div>
+
+    <p class="about-lead reveal">
+      Backend engineer specialising in distributed systems, data pipelines, and high-throughput Java services.
+    </p>
 
     <div class="timeline">
       <div class="timeline-item reveal">
@@ -763,7 +109,7 @@
       <!-- Rate Limiter -->
       <div class="project-card reveal">
         <div class="project-number">01 / 02</div>
-        <div class="project-name">Distributed Rate Limiter</div>
+        <h3 class="project-name">Distributed Rate Limiter</h3>
         <p class="project-desc">
           Production-grade rate limiting service and reusable Spring Boot Starter library. Supports three algorithms with atomic Redis Lua scripts, dynamic per-client configuration, and plug-and-play <code>@RateLimit</code> annotation via AOP.
         </p>
@@ -785,10 +131,10 @@
           <span class="tag">k6</span>
         </div>
         <div class="project-links">
-          <a href="https://github.com/bhaveshlohana/rate-limiter" target="_blank" class="project-link">
+          <a href="https://github.com/bhaveshlohana/rate-limiter" target="_blank" rel="noopener noreferrer" class="project-link">
             ↗ GitHub
           </a>
-          <a href="https://rate-limiter-service-y5d7.onrender.com/swagger-ui/index.html" target="_blank" class="project-link">
+          <a href="https://rate-limiter-service-y5d7.onrender.com/swagger-ui/index.html" target="_blank" rel="noopener noreferrer" class="project-link">
             ↗ Live Demo
           </a>
         </div>
@@ -797,7 +143,7 @@
       <!-- CacheForge -->
       <div class="project-card reveal">
         <div class="project-number">02 / 02</div>
-        <div class="project-name">CacheForge</div>
+        <h3 class="project-name">CacheForge</h3>
         <p class="project-desc">
           Cache simulation and benchmarking service supporting 8 eviction algorithms and 6 configurable workload generators. Real-time WebSocket progress streaming, concurrent simulation mode, and nanosecond-precision latency telemetry.
         </p>
@@ -817,10 +163,10 @@
           <span class="tag">Docker</span>
         </div>
         <div class="project-links">
-          <a href="https://github.com/bhaveshlohana/cache-forge" target="_blank" class="project-link">
+          <a href="https://github.com/bhaveshlohana/cache-forge" target="_blank" rel="noopener noreferrer" class="project-link">
             ↗ GitHub
           </a>
-          <a href="https://cache-forge.onrender.com" target="_blank" class="project-link">
+          <a href="https://cache-forge.onrender.com" target="_blank" rel="noopener noreferrer" class="project-link">
             ↗ Live Demo
           </a>
         </div>
@@ -840,7 +186,7 @@
 
     <div class="skills-grid">
       <div class="skill-group reveal">
-        <div class="skill-group-title">Languages</div>
+        <h3 class="skill-group-title">Languages</h3>
         <div class="skill-list">
           <span class="skill-badge">Java</span>
           <span class="skill-badge">Scala</span>
@@ -852,7 +198,7 @@
       </div>
 
       <div class="skill-group reveal">
-        <div class="skill-group-title">Frameworks & Technologies</div>
+        <h3 class="skill-group-title">Frameworks & Technologies</h3>
         <div class="skill-list">
           <span class="skill-badge">Spring Boot</span>
           <span class="skill-badge">Apache Spark</span>
@@ -864,7 +210,7 @@
       </div>
 
       <div class="skill-group reveal">
-        <div class="skill-group-title">Tools & Platforms</div>
+        <h3 class="skill-group-title">Tools & Platforms</h3>
         <div class="skill-list">
           <span class="skill-badge">Docker</span>
           <span class="skill-badge">GitHub Actions</span>
@@ -892,10 +238,10 @@
         <a href="mailto:bhaveshlohanawork@gmail.com" class="btn btn-primary">
           bhaveshlohanawork@gmail.com
         </a>
-        <a href="https://linkedin.com/in/bhavesh-lohana" target="_blank" class="btn btn-ghost">
+        <a href="https://linkedin.com/in/bhavesh-lohana" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">
           LinkedIn ↗
         </a>
-        <a href="https://github.com/bhaveshlohana" target="_blank" class="btn btn-ghost">
+        <a href="https://github.com/bhaveshlohana" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">
           GitHub ↗
         </a>
       </div>
@@ -910,27 +256,6 @@
 </footer>
 
 <script src="js/app.js"></script>
-<script type="application/json">
-  // Cursor glow
-  const glow = document.getElementById('cursorGlow');
-  document.addEventListener('mousemove', e => {
-    glow.style.left = e.clientX + 'px';
-    glow.style.top = e.clientY + 'px';
-  });
-
-  // Scroll reveal
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => {
-          entry.target.classList.add('visible');
-        }, 100);
-      }
-    });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-</script>
 
 </body>
 </html>
