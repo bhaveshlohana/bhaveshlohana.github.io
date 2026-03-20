@@ -547,6 +547,10 @@
       gap: 6px;
       letter-spacing: 0.5px;
       transition: color 0.2s;
+      position: relative; 
+      z-index: 10;      /* Higher than the background grid */
+      display: inline-block; /* Ensures the click area is properly calculated */
+      cursor: pointer;
     }
 
     .project-link:hover { color: var(--accent); }
