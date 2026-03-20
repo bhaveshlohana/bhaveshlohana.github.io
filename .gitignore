@@ -1,0 +1,13 @@
+# OS / editors
+.DS_Store
+.idea/
+.vscode/
+
+# Logs
+*.log
+
+# Node / build outputs (if added later)
+node_modules/
+dist/
+build/
+
